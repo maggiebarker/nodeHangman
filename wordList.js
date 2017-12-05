@@ -1,0 +1,23 @@
+exports.newWord = {
+    wordList:[
+    'SPACE JAM',
+    'TITANIC',
+    'PULP FICTION',
+    'FORREST GUMP',
+    'CLUELESS',
+    'FIGHT CLUB',
+    'GROUNDHOG DAY',
+    'CRUEL INTENTIONS',
+    'HOCUS POCUS',
+    'JURASSIC PARK',
+    'GOOD WILL HUNTING',
+    'THE FIFTH ELEMENT',
+    'MY COUSIN VINNY',
+    'NEVER BEEN KISSED',
+    'THE WEDDING SINGER',
+    'GALAXY QUEST',
+    'EDWARD SCISSORHANDS',
+    'SAVING PRIVATE RYAN',
+    'INDEPENDENCE DAY',
+    ]
+}

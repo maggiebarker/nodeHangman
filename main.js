@@ -4,6 +4,7 @@ var isLetter = require('is-letter');
 var Word = require('./word.js');
 var List = require('./wordList.js');
 
+this.newGame
 
 require('events').EventEmitter.prototype._maxListeners = 100;
 
@@ -12,16 +13,17 @@ var hangman = {
     guessesLeft: 10,
     guessedLetters: [],
     startGame: function(){
+        var that = this;
         if(this.guessedLetters.length > 0){
             this.guessedLetters = [];
         }
         inquirer.prompt([{
             name: "play",
             type: "confirm",
-            message: "Y'all ready for this?"
+            message: "Want to play Awesome 90's Hangman?"
         }]).then(function(answer){
             if(answer.play) {
-                this.newGame();
+                that.newGame();
             }else{
                 console.log("Psych!");
             }
@@ -29,9 +31,73 @@ var hangman = {
 
         newGame: function() {
             if(this.guessesLeft === 10){
-                console.log("Let's get ready to RUMBLE!");
+                console.log("Y'all ready for this?");
                 console.log('***************');
-            }
+                var randNum = Math.floor(Math.random()*this.wordList.length);
+                this.currentWord = new Word(this.wordList[randNum]);
+                this.currentWord.getLetters();
+                console.log(this.currentWord.wordRender());
+                this.promptAgain();
+            } else{
+                this.reset();
+                this.newGame();
+                }
+            },
+            reset: function(){
+                this.guessesLeft = 10;
+        },
+        promptAgain: function(){
+            var that = this;
+            inquirer.prompt([{
+                name: "chosenLtr",
+                type: "input",
+                message: "Choose a letter:",
+                validate: function(value) {
+                    if(isLetter(value)){
+                        return true;
+                    } else{
+                        return false;
+                    }
+                }
+            }]).then(function(ltr){
+                var letterReturned = (ltr.chosenLtr).toUpperCase();
+                var guessedPrev = false;
+                    for(var i = 0; i<that.guessedLetters.length; i++){
+                        if(letterReturned === that.guessedLetters[i]){
+                            guessedPrev = true;
+                        }
+                    }if(guessedPrev === false){
+                        that.guessedLetters.push(letterReturned);
+                        var found = that.currentWord.checkifLetterFound(letterReturned);
+                        if(found === 0){
+                            console.log('Wrong!');
+                            that.guessesLeft--;
+                            console.log('You have' + that.guessesLeft + 'guesses left');
+                            console.log('\n******************');
+                            console.log(currentWord.wordRender());
+                            console.log('\n******************');
+                            console.log("Letters guessed: " + that.guessedLetters);
+                        } else {
+                            if(this.currentWord.checkWord() === true){
+                                console.log(this.currentWord.wordRender());
+                                console.log('You Win!');
+                            } else{
+                                console.log('You have' + this.guessesLeft + 'guesses left');
+                                console.log('\n******************');
+                                console.log("Letters guessed: " + guessedLetters);
+                            }
+                        }
+                        if(guessesLeft > 0 && this.currentWord.wordFound === false){
+                            this.promptAgain();
+                        }else if (this.guessesLeft === 0){
+                            console.log('Loser!');
+                            console.log('The answer was' + this.currentWord.word);
+                        }
+                    }else {
+                        console.log("Try again!")
+                        this.promptAgain();
+                    }
+            });
         }
     }
-}
+hangman.startGame();
