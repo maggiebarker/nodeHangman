@@ -4,8 +4,6 @@ var isLetter = require('is-letter');
 var Word = require('./word.js');
 var List = require('./wordList.js');
 
-this.newGame
-
 require('events').EventEmitter.prototype._maxListeners = 100;
 
 var hangman = {
@@ -33,8 +31,8 @@ var hangman = {
             if(this.guessesLeft === 10){
                 console.log("Y'all ready for this?");
                 console.log('***************');
-                var randNum = Math.floor(Math.random()*this.wordList.length);
-                this.currentWord = new Word(this.wordList[randNum]);
+                var randNum = Math.floor(Math.random()*this.wordBank.length);
+                this.currentWord = new Word(this.wordBank[randNum]);
                 this.currentWord.getLetters();
                 console.log(this.currentWord.wordRender());
                 this.promptAgain();
@@ -51,7 +49,7 @@ var hangman = {
             inquirer.prompt([{
                 name: "chosenLtr",
                 type: "input",
-                message: "Choose a letter:",
+                message: "Choose a letter: ",
                 validate: function(value) {
                     if(isLetter(value)){
                         return true;
@@ -68,34 +66,36 @@ var hangman = {
                         }
                     }if(guessedPrev === false){
                         that.guessedLetters.push(letterReturned);
-                        var found = that.currentWord.checkifLetterFound(letterReturned);
+                        var found = that.currentWord.checkLetter(letterReturned);
                         if(found === 0){
                             console.log('Wrong!');
                             that.guessesLeft--;
-                            console.log('You have' + that.guessesLeft + 'guesses left');
+                            that.display++;
+                            console.log('You have ' + that.guessesLeft + ' guesses left');
                             console.log('\n******************');
                             console.log(currentWord.wordRender());
                             console.log('\n******************');
                             console.log("Letters guessed: " + that.guessedLetters);
                         } else {
-                            if(this.currentWord.checkWord() === true){
-                                console.log(this.currentWord.wordRender());
+                            console.log('Great job!');
+                            if(that.currentWord.foundCorrect() === true){
+                                console.log(that.currentWord.wordRender());
                                 console.log('You Win!');
                             } else{
-                                console.log('You have' + this.guessesLeft + 'guesses left');
+                                console.log('You have ' + that.guessesLeft + ' guesses left');
                                 console.log('\n******************');
-                                console.log("Letters guessed: " + guessedLetters);
+                                console.log("Letters guessed: " + that.guessedLetters);
                             }
                         }
-                        if(guessesLeft > 0 && this.currentWord.wordFound === false){
-                            this.promptAgain();
-                        }else if (this.guessesLeft === 0){
+                        if(guessesLeft > 0 && that.currentWord.wordFound === false){
+                            that.promptAgain();
+                        }else if (that.guessesLeft === 0){
                             console.log('Loser!');
-                            console.log('The answer was' + this.currentWord.word);
+                            console.log('The answer was ' + that.currentWord.word);
                         }
                     }else {
                         console.log("Try again!")
-                        this.promptAgain();
+                        that.promptAgain();
                     }
             });
         }
