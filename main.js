@@ -11,6 +11,7 @@ var hangman = {
     guessesLeft: 10,
     guessedLetters: [],
     display: 0,
+    currentWord: null,
     startGame: function(){
         var that = this;
         if(this.guessedLetters.length > 0){
