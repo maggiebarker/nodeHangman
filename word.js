@@ -1,8 +1,8 @@
 var Letter = require('./letter.js');
 
-function Word(word){
+function Word(wrd){
     var that = this;
-    this.word = word;
+    this.word = wrd;
     this.letters = [];
     this.wordFound = false;
     this.getLetters = function(){
@@ -31,7 +31,7 @@ function Word(word){
     };
     this.wordRender = function(){
         var display = '';
-        this.letters.forEach(function(lttr){
+        that.letters.forEach(function(lttr){
             var currentLetter = lttr.letterRender();
             display+= currentLetter;
         });

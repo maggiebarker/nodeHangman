@@ -7,9 +7,10 @@ var List = require('./wordList.js');
 require('events').EventEmitter.prototype._maxListeners = 100;
 
 var hangman = {
-    wordBank: List.newWord.wordList,
+    wordBank: List.wordList,
     guessesLeft: 10,
     guessedLetters: [],
+    display: 0,
     startGame: function(){
         var that = this;
         if(this.guessedLetters.length > 0){

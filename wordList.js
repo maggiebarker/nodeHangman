@@ -1,5 +1,4 @@
-exports.newWord = {
-    wordList:[
+exports.wordList = [  
     'SPACE JAM',
     'TITANIC',
     'PULP FICTION',
@@ -19,5 +18,4 @@ exports.newWord = {
     'EDWARD SCISSORHANDS',
     'SAVING PRIVATE RYAN',
     'INDEPENDENCE DAY',
-    ]
-}
+    ];

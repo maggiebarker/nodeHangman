@@ -1,5 +1,5 @@
 var Letter = function(letter){
-    this.letter = letter;
+    this.letter = lttr;
     this.visible = false;
     this.letterRender = function(){
         if(this.letter == ' '){
