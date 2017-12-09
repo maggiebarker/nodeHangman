@@ -6,7 +6,8 @@ function Word(wrd){
     this.letters = [];
     this.wordFound = false;
     this.getLetters = function(){
-        for(var i = 0; i<that.word.length; i++){
+        for(var i = 0; i<that.word.length; i++)
+        {
             var newLetter = new Letter(that.word[i]);
             this.letters.push(newLetter);
         }
@@ -33,10 +34,13 @@ function Word(wrd){
         var display = '';
         that.letters.forEach(function(lttr){
             var currentLetter = lttr.letterRender();
-            display+= currentLetter;
+            display += currentLetter;
         });
         return display;
         };
+        this.updateConsole = function(){
+            console.log(this.letters.join(" "))
+          }
 }
 
 module.exports = Word;

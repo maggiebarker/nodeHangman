@@ -62,11 +62,12 @@ var hangman = {
             }]).then(function(ltr){
                 var letterReturned = (ltr.chosenLtr).toUpperCase();
                 var guessedPrev = false;
-                    for(var i = 0; i<that.guessedLetters.length; i++){
+                    for(var i = 0; i < that.guessedLetters.length; i++){
                         if(letterReturned === that.guessedLetters[i]){
                             guessedPrev = true;
                         }
-                    }if(guessedPrev === false){
+                    }
+                    if(guessedPrev === false){
                         that.guessedLetters.push(letterReturned);
                         var found = that.currentWord.checkLetter(letterReturned);
                         if(found === 0){
@@ -75,7 +76,7 @@ var hangman = {
                             that.display++;
                             console.log('You have ' + that.guessesLeft + ' guesses left');
                             console.log('\n******************');
-                            console.log(currentWord.wordRender());
+                            console.log(that.currentWord.wordRender());
                             console.log('\n******************');
                             console.log("Letters guessed: " + that.guessedLetters);
                         } else {
@@ -85,11 +86,12 @@ var hangman = {
                                 console.log('You Win!');
                             } else{
                                 console.log('You have ' + that.guessesLeft + ' guesses left');
+                              console.log(that.currentWord.wordRender());
                                 console.log('\n******************');
                                 console.log("Letters guessed: " + that.guessedLetters);
                             }
                         }
-                        if(guessesLeft > 0 && that.currentWord.wordFound === false){
+                        if(that.guessesLeft > 0 && that.currentWord.wordFound === false){
                             that.promptAgain();
                         }else if (that.guessesLeft === 0){
                             console.log('Loser!');
